@@ -1,25 +1,20 @@
 function createGame(n) {
-    // Check if n is less than 3
     if (n < 3) {
         console.log("Error: The number of tiles must be at least 3.");
         return;
     }
 
-    // Initialize the game array with empty tiles
     let game = Array(n).fill(".");
 
-    // Generate random indexes for Pacman, Ghost, and Fruit
     let pacmanIndex = Math.floor(Math.random() * n);
     let ghostIndex = Math.floor(Math.random() * n);
     let fruitIndex = Math.floor(Math.random() * n);
 
-    // Ensure Pacman, Ghost, and Fruit are not in the same position
     while (ghostIndex === pacmanIndex || fruitIndex === pacmanIndex || ghostIndex === fruitIndex) {
         ghostIndex = Math.floor(Math.random() * n);
         fruitIndex = Math.floor(Math.random() * n);
     }
 
-    // Place Pacman, Ghost, and Fruit on the game array
     game[pacmanIndex] = "C";
     game[ghostIndex] = "^";
     game[fruitIndex] = "@";
@@ -27,12 +22,41 @@ function createGame(n) {
     return game;
 }
 
-function moveLeft(game){
-    
+function moveLeft(game) {
+    let pacmanIndex = game.indexOf("C");
+
+    let newIndex = (pacmanIndex - 1 + game.length) % game.length;
+
+    game[pacmanIndex] = "";
+    if (game[newIndex] === ".") {
+        game[newIndex] = "C";
+    } else {
+        game[newIndex] = "C" + game[newIndex];
+    }
+
+    return game;
 }
 
-function moveLeft(game){
-    
+function moveRight(game) {
+    let pacmanIndex = game.indexOf("C");
+
+    let newIndex = (pacmanIndex + 1) % game.length;
+
+    game[pacmanIndex] = "";
+    if (game[newIndex] === ".") {
+        game[newIndex] = "C";
+    } else {
+        game[newIndex] = "C" + game[newIndex];
+    }
+
+    return game;
 }
 
-console.log(createGame(10));
+let game = createGame(10);
+console.log("Initial game state:", game);
+
+game = moveRight(game);
+console.log("After moving right:", game);
+
+game = moveLeft(game);
+console.log("After moving left:", game);
