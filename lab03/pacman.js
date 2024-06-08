@@ -1,3 +1,7 @@
+let game;
+let score = 0;
+let highScore = 0;
+
 function createGame(n) {
     if (n < 3) {
         console.log("Error: The number of tiles must be at least 3.");
@@ -24,39 +28,57 @@ function createGame(n) {
 
 function moveLeft(game) {
     let pacmanIndex = game.indexOf("C");
-
     let newIndex = (pacmanIndex - 1 + game.length) % game.length;
 
     game[pacmanIndex] = "";
     if (game[newIndex] === ".") {
+        score++;
         game[newIndex] = "C";
     } else {
         game[newIndex] = "C" + game[newIndex];
     }
 
+    updateScore();
     return game;
 }
 
 function moveRight(game) {
     let pacmanIndex = game.indexOf("C");
-
     let newIndex = (pacmanIndex + 1) % game.length;
 
     game[pacmanIndex] = "";
     if (game[newIndex] === ".") {
+        score++;
         game[newIndex] = "C";
     } else {
         game[newIndex] = "C" + game[newIndex];
     }
 
+    updateScore();
     return game;
 }
 
-let game = createGame(10);
-console.log("Initial game state:", game);
+function updateScore() {
+    document.getElementById("score").innerText = "Score: " + score;
+    if (score > highScore) {
+        highScore = score;
+        document.getElementById("hiscore").innerText = "High Score: " + highScore;
+    }
+}
 
-game = moveRight(game);
-console.log("After moving right:", game);
+function renderGame(game) {
+    document.getElementById("game_screen").innerText = game.join(" ");
+}
 
-game = moveLeft(game);
-console.log("After moving left:", game);
+document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+        game = moveLeft(game);
+    } else if (event.key === "ArrowRight") {
+        game = moveRight(game);
+    }
+    renderGame(game);
+});
+
+game = createGame(10);
+renderGame(game);
+updateScore();
