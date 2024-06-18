@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>1D Pac-Man</title>
+    <style>
+        body {
+            user-select: none; /* Disable text selection */
+            font-family: system-ui;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #000;
+            font-size: 20px;
+        }
+        .empty {
+            background-color: #fff;
+        }
+        .pacman {
+            background-color: yellow;
+        }
+        .ghost {
+            background-color: red;
+            color: white;
+        }
+        .fruit {
+            background-color: green;
+            color: white;
+        }
+        .pellet {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <p id="score">Score: 0</p>
+    <p id="hiscore">High Score: 0</p>
+    <p id="fruit">Fruit: None</p>
+    <p id="gameover" style="display:none; color: red;">Game Over</p>
+    <table id="game_screen"></table>
+
+    <script type="text/javascript" src="pacman.js"></script>
+</body>
+</html>
